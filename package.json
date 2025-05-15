@@ -1,0 +1,15 @@
+{
+  "name": "steam-watcher",
+  "version": "1.0.0",
+  "description": "Steam game watcher to check your games and if there's any change on the site.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Andrés Eslava & Fabrizio Veliz",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}
