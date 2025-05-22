@@ -6,6 +6,7 @@
 
 ## 📦 Estructura del proyecto
 
+```
 steam-watcher/
 │
 ├── src/
@@ -21,6 +22,7 @@ steam-watcher/
 ├── package.json
 ├── package-lock.json
 └── README.md
+```
 
 ---
 
