@@ -4,12 +4,32 @@
   "description": "Steam game watcher to check your games and if there's any change on the site.",
   "main": "index.js",
   "scripts": {
+    "start": "node src/backend/server.js",
+    "start:electron": "electron src/frontend/electron/main.js",
+    "dev": "nodemon src/backend/server.js",
+    "electron": "electron src/frontend/electron/main.js",
     "test": "jest"
   },
   "keywords": [],
   "author": "Andrés Eslava & Fabrizio Veliz",
   "license": "ISC",
   "dependencies": {
-    "jest": "^29.7.0"
+    "dotenv": "^16.5.0",
+    "jest": "^29.7.0",
+    "puppeteer": "^24.8.2"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndoresuSama/SteamWatcher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AndoresuSama/SteamWatcher/issues"
+  },
+  "homepage": "https://github.com/AndoresuSama/SteamWatcher#readme",
+  "devDependencies": {
+    "electron": "^36.2.1"
   }
 }
