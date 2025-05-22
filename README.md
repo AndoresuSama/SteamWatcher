@@ -47,7 +47,7 @@ steam-watcher/
 ### 📍 Instalación
 
 ```bash
-git clone https://github.com/tu-usuario/steam-watcher.git
+git clone https://github.com/AndoresuSama/SteamWatcher.git
 cd steam-watcher
 npm install
 ````
