@@ -15,7 +15,9 @@ function generateMockGame(query) {
     },
     price: {
       value: "$59.99",
-      hasChanged: false
+      finalPrice: "$47.99",
+      discount: "-20%",
+      hasChanged: true
     },
     reviews: {
       value: "Very Positive",
@@ -41,9 +43,18 @@ function renderCard(game) {
     <p class="${game.releaseDate.hasChanged ? 'highlight' : ''}">
       <strong>Lanzamiento:</strong> ${game.releaseDate.value}
     </p>
-    <p class="${game.price.hasChanged ? 'highlight' : ''}">
-      <strong>Precio:</strong> ${game.price.value}
-    </p>
+    <div class="price-box ${game.price.hasChanged ? 'highlight' : ''}">
+      <strong>Precio:</strong>
+      ${
+        game.price.discount
+          ? `
+            <span class="discount-tag">${game.price.discount}</span>
+            <span class="original-price">${game.price.value}</span>
+            <span class="final-price">${game.price.finalPrice}</span>
+          `
+          : `<span class="final-price no-discount">${game.price.finalPrice}</span>`
+      }
+    </div>
     <p class="${game.reviews.hasChanged ? 'highlight' : ''}">
       <strong>Reseñas:</strong> ${game.reviews.value}
     </p>
