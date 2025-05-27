@@ -1,3 +1,24 @@
+/**
+ * Renderiza una tarjeta de juego en el contenedor de tarjetas del DOM.
+ *
+ * @param {Object} game - Objeto que representa el juego a mostrar.
+ * @param {number} game.id - Identificador único del juego.
+ * @param {string} game.name - Nombre del juego.
+ * @param {Object} game.releaseDate - Información de la fecha de lanzamiento.
+ * @param {string} game.releaseDate.value - Fecha de lanzamiento.
+ * @param {boolean} game.releaseDate.hasChanged - Si la fecha ha cambiado.
+ * @param {Object} game.price - Información de precios y descuentos.
+ * @param {string} game.price.value - Precio original.
+ * @param {string} game.price.finalPrice - Precio con descuento.
+ * @param {string} [game.price.discount] - Porcentaje de descuento.
+ * @param {boolean} game.price.hasChanged - Si el precio ha cambiado.
+ * @param {Object} game.reviews - Información de reseñas.
+ * @param {string} game.reviews.value - Valoración de reseñas.
+ * @param {boolean} game.reviews.hasChanged - Si las reseñas han cambiado.
+ * @param {Object} game.image - Información de la imagen del juego.
+ * @param {string} game.image.value - URL de la imagen.
+ * @param {boolean} game.image.hasChanged - Si la imagen ha cambiado.
+ */
 function renderCard(game) {
   const cardsContainer = document.getElementById('cardsContainer');
   const card = document.createElement('div');

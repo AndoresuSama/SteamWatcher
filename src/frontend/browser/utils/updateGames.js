@@ -1,3 +1,12 @@
+/**
+ * Actualiza aleatoriamente el precio de los juegos simulando cambios.
+ *
+ * Si el precio cambia, se asigna un nuevo valor aleatorio y se marca como cambiado.
+ * Si no, se mantiene el precio anterior y se marca como no cambiado.
+ *
+ * @param {Array<Object>} games - Array de objetos de juegos a actualizar.
+ * @returns {Array<Object>} Nuevo array de juegos con posibles cambios en el precio.
+ */
 function updateGames(games) {
   return games.map(game => {
     const updated = { ...game };
