@@ -3,13 +3,10 @@ const { DB } = require("../db");
 
 class SteamFetcherController {
   /**
-   * 
+   * Función que agrega un juego en DB
    * @param {*} game 
    */
-
-  static current_page = null;
-
-  static async addNewGame(gameName) {
+  static async addGame(gameName) {
 
     if (!gameName) throw new Error('Parámetro gameName invalido');
 
@@ -33,7 +30,7 @@ class SteamFetcherController {
   /**
    * Función que actualiza el estado de los juegos almacenados en DB
    */
-  static async updateGameStatus() {
+  static async updateGames() {
     const browser = await puppeteer.launch({ headless: true });
     const db = JSON.parse(await DB.getFile());
 
@@ -146,6 +143,7 @@ class SteamFetcherController {
       const originalPrice = el.querySelector('.discount_original_price');
       const finalPrice = el.querySelector('.discount_final_price');
       const discount = el.querySelector('.discount_pct');
+      const image = el.querySelector('img')?.getAttribute('src');
 
       return {
         id,
@@ -165,6 +163,10 @@ class SteamFetcherController {
             finalPrice?.textContent?.trim() || null,
           discount: discount ? discount?.textContent?.trim() : null,
           finalPrice: finalPrice ? finalPrice?.textContent?.trim() : null,
+          hasChanged: false
+        },
+        image: {
+          value: image,
           hasChanged: false
         }
       };

@@ -13,7 +13,7 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(games);
     } else if (req.url === '/api/games/updated' && req.method === 'GET') {
-      await SteamFetcherController.updateGameStatus();
+      await SteamFetcherController.updateGames();
       const games = await GameManagerController.getList();
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -28,7 +28,7 @@ const server = http.createServer(async (req, res) => {
       req.on('end', async () => {
         const data = JSON.parse(body);
 
-        await SteamFetcherController.addNewGame(data?.name);
+        await SteamFetcherController.addGame(data?.name);
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ message: 'Juego agregado con éxito' }));
