@@ -1,39 +1,18 @@
-const { GameManagerController } = require("./controllers/gamesController");
-const { SteamFetcherController } = require("./controllers/steamFetcherController");
+const http = require('http');
+const { getList, deleteGame } = require("./routes/games");
+const { createGame, updateGames } = require("./routes/steamFetcher");
 
 const PORT = 3000;
 
-const http = require('http');
-
 const server = http.createServer(async (req, res) => {
   try {
-    if (req.url === '/api/games' && req.method === 'GET') {
-      const games = await GameManagerController.getList();
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(games);
-    } else if (req.url === '/api/games/updated' && req.method === 'GET') {
-      await SteamFetcherController.updateGames();
-      const games = await GameManagerController.getList();
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(games);
-    } else if (req.url === '/api/games' && req.method === 'POST') {
-      let body = '';
-
-      req.on('data', chunk => {
-        body += chunk.toString();
-      });
-
-      req.on('end', async () => {
-        const data = JSON.parse(body);
-
-        await SteamFetcherController.addGame(data?.name);
-
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: 'Juego agregado con éxito' }));
-      });
-
+    if (req.method === 'GET' && req.url.includes('/api/games') || req.url.includes('/api/games/updated')) {
+      if (req.url === '/api/games') await getList(req, res);
+      else await updateGames(req, res);
+    } else if (req.method === 'POST' && req.url == '/api/games') {
+      await createGame(req, res);
+    } else if (req.method === 'DELETE' && req.url.startsWith('/api/games/')) {
+      await deleteGame(req, res);
     } else {
       res.writeHead(404, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Not Found' }));
