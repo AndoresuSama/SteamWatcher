@@ -22,12 +22,31 @@ let games = [];
  * Evento click para buscar/agregar un juego.
  * Genera un juego simulado, lo agrega al array y lo renderiza.
  */
-searchBtn.addEventListener('click', () => {
+searchBtn.addEventListener('click', async () => {
   const query = searchInput.value.trim();
+
   if (query) {
-    const newGame = generateMockGame(query);
-    games.push(newGame);
-    renderCard(newGame, games);
+    const newGame = await fetch('http://localhost:3000/api/games', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({name: query})
+    });
+    console.log(newGame);
+
+    const getGames = async() => {
+      const games = await fetch('http://localhost:3000/api/games');
+      const resGames = await games.json();
+      console.log(resGames)
+      return resGames.games;
+    };
+
+    const updatedGames = await getGames();
+    console.log(updatedGames)
+    games = updatedGames;
+    console.log(games);
+    renderCards(games);
     searchInput.value = "";
   }
 });
@@ -46,7 +65,13 @@ searchInput.addEventListener('keydown', e => {
  * @param {number} id - ID del juego a eliminar.
  */
 window.deleteGame = function(id) {
-  games = deleteGameById(id, games, cardsContainer);
+  //games = deleteGameById(id, games, cardsContainer);
+  const deleteGameByIdNew = async(id) => {
+    const deleted = await fetch(`http:localhost:3000/api/games/${id}`);
+    console.log(deleted);
+  }
+
+  deleteGameByIdNew();
 };
 
 /**
