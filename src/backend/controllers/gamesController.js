@@ -16,7 +16,8 @@ class GameManagerController {
    */
   static async delete(gameId) {
     const db = JSON.parse(await DB.getFile());
-    const filteredGames = db?.games?.filter(({ id }) => id !== gameId);
+    const games = Array.isArray(db?.games) ? db.games : [];
+    const filteredGames = games.filter(({ id }) => id !== Number(gameId));
     db.games = filteredGames;
     await DB.write(JSON.stringify(db, null, 2));
   }

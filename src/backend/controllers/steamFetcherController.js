@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const { DB } = require("../db");
+const { Worker, isMainThread } = require('worker_threads');
 
 class SteamFetcherController {
   /**
@@ -80,7 +81,28 @@ class SteamFetcherController {
   static async findGameById(gameElements, appId) {
     for (const element of gameElements) {
       const id = await element.evaluate(el => el.getAttribute('data-ds-appid'));
-      if (id === appId) return element;
+      if (id === appId) {
+        
+        if (isMainThread) {
+          const worker = new Worker('./src/backend/controllers/exampleThreads.js', {
+            workerData: { id: appId }
+          });
+
+          worker.on('message', (msg) => {
+            console.log(msg);
+          });
+
+          worker.on('error', (err) => {
+            console.error('Error:', err);
+          });
+
+          worker.on('exit', (code) => {
+            console.log(`Finalizó el proceso con codigo ${code}`);
+          });
+        }
+
+        return element;
+      }
     }
     return null;
   }
@@ -118,7 +140,8 @@ class SteamFetcherController {
 
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
 
-    await page.goto(`https://store.steampowered.com/search/?term=${gameName}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    const query = encodeURIComponent(gameName);
+    await page.goto(`https://store.steampowered.com/search/?term=${query}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
     const gamesList = await page.$$('#search_resultsRows a');
 
