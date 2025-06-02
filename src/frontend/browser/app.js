@@ -1,6 +1,7 @@
 /**
  * Módulo principal de la aplicación frontend.
- * Gestiona la búsqueda, renderizado, eliminación y actualización de tarjetas de juegos en el DOM.
+ * Gestiona la búsqueda, renderizado, eliminación y actualización de tarjetas de juegos en el DOM,
+ * obteniendo los datos desde el backend mediante peticiones HTTP.
  *
  * Elementos principales:
  * - cardsContainer: Contenedor de tarjetas de juegos.
@@ -18,36 +19,56 @@ const searchInput = document.getElementById('searchInput');
 
 let games = [];
 
+/**
+ * Obtiene la lista de juegos desde el backend.
+ */
 const getGames = async() => {
-  const games = await fetch('http://localhost:3000/api/games');
-  const resGames = await games.json();
-  console.log(resGames)
-  return resGames.games;
+  const response = await fetch('http://localhost:3000/api/games');
+  const data = await response.json();
+  console.log(data)
+  return data.games;
 };
 
 /**
+ * Actualiza la lista de juegos obteniéndola del backend y renderizándola.
+ */
+const updateGameList = async() => {
+  const updatedGames = await getGames();
+  console.log(updatedGames);
+  games = updatedGames;
+  renderCards(games);
+  searchInput.value = "";
+};
+
+/**
+ * Elimina un juego del backend por su ID.
+ * @param {number} id - ID del juego a eliminar.
+ */
+const deleteGameById = async(id) => {
+  const deleted = await fetch(`http:localhost:3000/api/games/${id}`, {
+    method: 'DELETE'
+  });
+  const res = await deleted.json();
+  console.log(res);
+}
+
+/**
  * Evento click para buscar/agregar un juego.
- * Genera un juego simulado, lo agrega al array y lo renderiza.
+ * Realiza una petición al backend para agregar un juego y actualiza la lista.
  */
 searchBtn.addEventListener('click', async () => {
   const query = searchInput.value.trim();
 
   if (query) {
-    const newGame = await fetch('http://localhost:3000/api/games', {
+    const response = await fetch('http://localhost:3000/api/games', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({name: query})
     });
-    console.log(newGame);
-
-    const updatedGames = await getGames();
-    console.log(updatedGames)
-    games = updatedGames;
-    console.log(games);
-    renderCards(games);
-    searchInput.value = "";
+    console.log(response);
+    updateGameList();
   }
 });
 
@@ -55,35 +76,21 @@ searchBtn.addEventListener('click', async () => {
  * Permite agregar juegos presionando Enter en el input.
  */
 searchInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    searchBtn.click();
-  }
+  if (e.key === 'Enter') searchBtn.click();
 });
 
 /**
- * Elimina un juego del array y del DOM.
+ * Elimina un juego del backend y actualiza la lista.
  * @param {number} id - ID del juego a eliminar.
  */
 window.deleteGame = async function(id) {
-  //games = deleteGameById(id, games, cardsContainer);
-  const deleteGameByIdNew = async(id) => {
-    const deleted = await fetch(`http:localhost:3000/api/games/${id}`, {
-      method: 'DELETE'
-    });
-    const res = await deleted.json();
-    console.log(res);
-  }
-  console.log(id);
-  deleteGameByIdNew(id);
-  const updatedGames = await getGames();
-  console.log(updatedGames)
-  games = updatedGames;
-  console.log(games);
-  renderCards(games);
-  searchInput.value = "";
+  await deleteGameById(id);
+  updateGameList();
 };
 
+updateGameList();
+
 /**
- * Actualiza los juegos cada minuto simulando cambios de precio.
+ * Actualiza los juegos cada minuto obteniendo los datos del backend.
  */
-setInterval(() => updateGames(games), 60000);
+setInterval(() => updateGameList(), 60000);
