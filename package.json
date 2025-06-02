@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/AndoresuSama/SteamWatcher#readme",
   "devDependencies": {
-    "electron": "^36.2.1"
+    "electron": "^36.2.1",
+    "jest-environment-jsdom": "^30.0.0-beta.3"
   }
 }

@@ -22,6 +22,8 @@ let games = [];
 /**
  * Evento click para buscar/agregar un juego.
  * Realiza una petición al backend para agregar un juego y actualiza la lista.
+ * @function
+ * @returns {Promise<void>} Una promesa que se resuelve cuando el juego ha sido agregado y la lista actualizada.
  */
 searchBtn.addEventListener('click', async () => {
   const query = searchInput.value.trim();
@@ -41,6 +43,9 @@ searchBtn.addEventListener('click', async () => {
 
 /**
  * Permite agregar juegos presionando Enter en el input.
+ * @function
+ * @param {KeyboardEvent} e - Evento de teclado.
+ * @returns {void}
  */
 searchInput.addEventListener('keydown', e => {
   if (e.key === 'Enter') searchBtn.click();
@@ -48,16 +53,25 @@ searchInput.addEventListener('keydown', e => {
 
 /**
  * Elimina un juego del backend y actualiza la lista.
+ * @function
  * @param {number} id - ID del juego a eliminar.
+ * @returns {Promise<void>} Una promesa que se resuelve cuando el juego ha sido eliminado y la lista actualizada.
  */
 window.deleteGame = async function(id) {
   await deleteGameById(id);
   updateGameList();
 };
 
+/**
+ * Inicializa la lista de juegos al cargar la aplicación.
+ * @function
+ * @returns {Promise<void>} Una promesa que se resuelve cuando la lista ha sido actualizada.
+ */
 updateGameList();
 
 /**
  * Actualiza los juegos cada minuto obteniendo los datos del backend.
+ * @function
+ * @returns {void}
  */
 setInterval(() => updateGameList(), 60000);
