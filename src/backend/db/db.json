@@ -1,0 +1,27 @@
+{
+  "games": [
+    {
+      "id": "3240220",
+      "href": "https://store.steampowered.com/app/3240220/Grand_Theft_Auto_V_Enhanced/?snr=1_7_7_151_150_1",
+      "name": "Grand Theft Auto V Enhanced",
+      "releaseDate": {
+        "value": "4 MAR 2025",
+        "hasChanged": true
+      },
+      "reviews": {
+        "value": "Variadas",
+        "hasChanged": false
+      },
+      "price": {
+        "value": "$29.99",
+        "discount": null,
+        "finalPrice": "$29.99",
+        "hasChanged": false
+      },
+      "image": {
+        "value": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3240220/a318bd9affe8eee32984b18794b273c256e9b2d6/capsule_sm_120.jpg?t=1741381848",
+        "hasChanged": false
+      }
+    }
+  ]
+}

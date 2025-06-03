@@ -10,12 +10,30 @@
 steam-watcher/
 │
 ├── src/
-│   ├── backend/               # Servidor HTTP + scrapping + almacenamiento
+│   ├── backend/                             # Servidor HTTP + Scrapping + Encriptación + Almacenamiento
+│   │   ├── controllers/
+|   |   |   ├── encrypt.js
+│   │   │   ├── exampleThreads.js
+│   │   │   ├── gamesController.js
+│   │   │   └── steamFetcherController.js
+│   │   ├── db/
+│   │   │   ├── db.json                     
+│   │   │   └── index.js
+│   │   ├── routes/                         
+│   │   └── index.js
+│   │    
+│   │
 │   └── frontend/
-│       ├── browser/           # Frontend para navegador (HTML/CSS/JS)
-│       └── electron/          # Frontend para escritorio (Electron)
+│       ├── browser/                         # Frontend para navegador (HTML/CSS/JS)
+│       └── electron/                        # Frontend para escritorio (Electron)
 │
-├── tests/                     # Tests con Jest (pendiente)
+├── tests/                                   # Tests con Jest
+│   ├── backend/
+│   │   ├── deleteGame.test.js
+│   │   ├── getGameInformation.test.js
+│   │   └── searchBySteamName.test.js
+│   └── frontend/
+│       └── gamesManager.test.js
 ├── .env
 ├── .gitignore
 ├── jest.config.js
@@ -89,17 +107,37 @@ npm run start:electron
 
 ---
 
-## 🧠 Backend (en desarrollo)
+## 🧠 Backend
 
-> *Esta sección será completada por el equipo de backend.*
+### 🧪 Estado: **Finalizado**
+
+Para levantar el servicio:
+
+```bash
+npm run start
+```
+
+Se iniciará el servicio en el puerto configurado en .env o en el 3000 por defecto.
+
+---
+
+## ✨ Backend Features
 
 * Scrapping de información de juegos desde Steam.
+* Encriptación de información
 * Servidor HTTP que responde a:
 
   * `GET /games` → devuelve el JSON de juegos
-  * `POST /games` → agrega uno nuevo
-  * `DELETE /games/:id` → elimina un juego
-* Actualización y almacenamiento de datos en un JSON local (`games.json`) que actúa como base de datos.
+  * `GET /games/updated` → actualiza el estado de los juegos en DB (consultando a Steam) y los retorna
+  * `POST /games` → almacena un nuevo juego en DB (Body: { "name": "ExampleGame" })
+  * `DELETE /games/:id` → elimina un juego por su id
+* Almacenamiento de datos en un JSON local (`db.json`) que actúa como base de datos.
+* Actualización de los datos y detección de cambios en los siguientes campos:
+  
+  * Fecha de lanzamiento
+  * Reseñas
+  * Precio
+  * Imagen 
 
 El frontend se conecta a este backend para mostrar y mantener los datos sincronizados tanto en navegador como en Electron.
 
@@ -123,9 +161,26 @@ El frontend se conecta a este backend para mostrar y mantener los datos sincroni
 
 ## 📌 TODO (Frontend)
 
-* [ ] Finalizar integración con Electron.
+* [x] Finalizar integración con Electron.
 * [ ] Persistencia en `localStorage` si backend no está disponible.
-* [ ] Tests de frontend con Jest + Testing Library.
+* [x] Tests de frontend con Jest + Testing Library.
+
+---
+## 🧪 Cómo ejecutar los tests
+
+Para ejecutar los tests del proyecto, sigue estos pasos:
+
+1. Asegúrate de tener instaladas todas las dependencias necesarias. Ejecuta:
+  ```
+  npm install
+  ```
+
+2. Ejecuta los tests con el siguiente comando:
+  ```
+  npm test
+  ```
+
+3. Para ver un reporte detallado o ejecutar tests en modo interactivo, consulta la documentación de la herramienta de Jest.
 
 ---
 
