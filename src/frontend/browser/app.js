@@ -67,7 +67,7 @@ window.deleteGame = async function(id) {
  * @function
  * @returns {Promise<void>} Una promesa que se resuelve cuando la lista ha sido actualizada.
  */
-updateGameList();
+getGames();
 
 /**
  * Actualiza los juegos cada minuto obteniendo los datos del backend.

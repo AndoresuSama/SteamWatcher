@@ -9,8 +9,8 @@ const getGames = async () => {
     console.log('Fetching games from backend...');
     const response = await fetch('http://localhost:3000/api/games');
     const data = await response.json();
-    console.log(data);
-    return data.games;
+    console.log(data.games);
+    renderCards(data.games);
   } catch (error) {
     console.error('Error fetching games:', error);
     return [];
@@ -25,10 +25,10 @@ const getGames = async () => {
  */
 const updateGameList = async () => {
   try {
-    const updatedGames = await getGames();
-    console.log(updatedGames);
-    games = updatedGames;
-    renderCards(games);
+    const response = await fetch('http://localhost:3000/api/games/updated');
+    const updatedGames = await response.json();
+    console.log(updatedGames.games);
+    renderCards(updatedGames.games);
     searchInput.value = "";
   } catch (error) {
     console.error('Error updating game list:', error);
