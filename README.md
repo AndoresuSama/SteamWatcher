@@ -10,8 +10,9 @@
 steam-watcher/
 │
 ├── src/
-│   ├── backend/                             # Servidor HTTP + scrapping + Almacenamiento
+│   ├── backend/                             # Servidor HTTP + Scrapping + Encriptación + Almacenamiento
 │   │   ├── controllers/
+|   |   |   ├── encrypt.js
 │   │   │   ├── exampleThreads.js
 │   │   │   ├── gamesController.js
 │   │   │   └── steamFetcherController.js
@@ -117,6 +118,7 @@ Se iniciará el servicio en el puerto configurado en .env o en el 3000 por defec
 ## ✨ Backend Features
 
 * Scrapping de información de juegos desde Steam.
+* Encriptación de información
 * Servidor HTTP que responde a:
 
   * `GET /games` → devuelve el JSON de juegos
