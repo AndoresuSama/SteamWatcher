@@ -27,7 +27,13 @@ steam-watcher/
 │       ├── browser/                         # Frontend para navegador (HTML/CSS/JS)
 │       └── electron/                        # Frontend para escritorio (Electron)
 │
-├── tests/                                   # Tests con Jest (pendiente)
+├── tests/                                   # Tests con Jest
+│   ├── backend/
+│   │   ├── deleteGame.test.js
+│   │   ├── getGameInformation.test.js
+│   │   └── searchBySteamName.test.js
+│   └── frontend/
+│       └── gamesManager.test.js
 ├── .env
 ├── .gitignore
 ├── jest.config.js
@@ -155,9 +161,26 @@ El frontend se conecta a este backend para mostrar y mantener los datos sincroni
 
 ## 📌 TODO (Frontend)
 
-* [ ] Finalizar integración con Electron.
+* [x] Finalizar integración con Electron.
 * [ ] Persistencia en `localStorage` si backend no está disponible.
-* [ ] Tests de frontend con Jest + Testing Library.
+* [x] Tests de frontend con Jest + Testing Library.
+
+---
+## 🧪 Cómo ejecutar los tests
+
+Para ejecutar los tests del proyecto, sigue estos pasos:
+
+1. Asegúrate de tener instaladas todas las dependencias necesarias. Ejecuta:
+  ```
+  npm install
+  ```
+
+2. Ejecuta los tests con el siguiente comando:
+  ```
+  npm test
+  ```
+
+3. Para ver un reporte detallado o ejecutar tests en modo interactivo, consulta la documentación de la herramienta de Jest.
 
 ---
 
