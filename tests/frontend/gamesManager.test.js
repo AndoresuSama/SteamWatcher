@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-const { getGames, updateGameList, deleteGameById } = require('../src/frontend/browser/utils/gamesManager');
+const { getGames, updateGameList, deleteGameById } = require('../../src/frontend/browser/utils/gamesManager');
 //import { getGames, updateGameList, deleteGameById } from '../src/frontend/browser/utils/gamesManager';
 
 // Mock global variables and functions used in gamesManager.js
@@ -56,7 +56,7 @@ describe('gamesManager', () => {
 
       await deleteGameById(mockId);
 
-      expect(fetch).toHaveBeenCalledWith(`http:localhost:3000/api/games/${mockId}`, {
+      expect(fetch).toHaveBeenCalledWith(`http://localhost:3000/api/games/${mockId}`, {
         method: 'DELETE'
       });
     });

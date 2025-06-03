@@ -1,4 +1,4 @@
-const { SteamFetcherController } = require('../src/backend/controllers/steamFetcherController');
+const { SteamFetcherController } = require('../../src/backend/controllers/steamFetcherController');
 
 describe('getGameInformation', () => {
   test('Formatea la información de un juego correctamente', async () => {

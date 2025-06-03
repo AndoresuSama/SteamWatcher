@@ -1,4 +1,4 @@
-const { SteamFetcherController } = require('../src/backend/controllers/steamFetcherController');
+const { SteamFetcherController } = require('../../src/backend/controllers/steamFetcherController');
 
 describe('searchBySteamName', () => {
   let mockPage;

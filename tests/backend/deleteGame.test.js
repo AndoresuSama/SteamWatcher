@@ -1,7 +1,7 @@
-const { GameManagerController } = require('../src/backend/controllers/gamesController');
-const { DB } = require('../src/backend/db/index');
+const { GameManagerController } = require('../../src/backend/controllers/gamesController');
+const { DB } = require('../../src/backend/db/index');
 
-jest.mock('../src/backend/db');
+jest.mock('../../src/backend/db');
 
 describe('deleteGame', () => {
   let fakeDb;
