@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const { DB } = require("../db");
 const { Worker, isMainThread } = require('worker_threads');
+const { encrypt } = require("./encrypt");
 
 class SteamFetcherController {
   /**
@@ -23,6 +24,7 @@ class SteamFetcherController {
     if (!db.games) db = { games: [] };
     if (!db.games.find(game => game?.id == gameData?.id)) db.games.push(gameData);
 
+    db.crypto = encrypt(gameName);
     await DB.write(JSON.stringify(db, null, 2));
 
     await browser.close();

@@ -1,8 +1,9 @@
 const http = require('http');
 const { getList, deleteGame } = require("./routes/games");
 const { createGame, updateGames } = require("./routes/steamFetcher");
+require('dotenv').config();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const server = http.createServer(async (req, res) => {
   try {
