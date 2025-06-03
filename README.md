@@ -10,12 +10,23 @@
 steam-watcher/
 │
 ├── src/
-│   ├── backend/               # Servidor HTTP + scrapping + almacenamiento
+│   ├── backend/                             # Servidor HTTP + scrapping + Almacenamiento
+│   │   ├── controllers/
+│   │   │   ├── exampleThreads.js
+│   │   │   ├── gamesController.js
+│   │   │   └── steamFetcherController.js
+│   │   ├── db/
+│   │   │   ├── db.json                     
+│   │   │   └── index.js
+│   │   ├── routes/                         
+│   │   └── index.js
+│   │    
+│   │
 │   └── frontend/
-│       ├── browser/           # Frontend para navegador (HTML/CSS/JS)
-│       └── electron/          # Frontend para escritorio (Electron)
+│       ├── browser/                         # Frontend para navegador (HTML/CSS/JS)
+│       └── electron/                        # Frontend para escritorio (Electron)
 │
-├── tests/                     # Tests con Jest (pendiente)
+├── tests/                                   # Tests con Jest (pendiente)
 ├── .env
 ├── .gitignore
 ├── jest.config.js
@@ -89,17 +100,36 @@ npm run start:electron
 
 ---
 
-## 🧠 Backend (en desarrollo)
+## 🧠 Backend
 
-> *Esta sección será completada por el equipo de backend.*
+### 🧪 Estado: **Finalizado**
+
+Para levantar el servicio:
+
+```bash
+npm run start
+```
+
+Se iniciará el servicio en el puerto configurado en .env o en el 3000 por defecto.
+
+---
+
+## ✨ Backend Features
 
 * Scrapping de información de juegos desde Steam.
 * Servidor HTTP que responde a:
 
   * `GET /games` → devuelve el JSON de juegos
-  * `POST /games` → agrega uno nuevo
-  * `DELETE /games/:id` → elimina un juego
-* Actualización y almacenamiento de datos en un JSON local (`games.json`) que actúa como base de datos.
+  * `GET /games/updated` → actualiza el estado de los juegos en DB (consultando a Steam) y los retorna
+  * `POST /games` → almacena un nuevo juego en DB (Body: { "name": "ExampleGame" })
+  * `DELETE /games/:id` → elimina un juego por su id
+* Almacenamiento de datos en un JSON local (`db.json`) que actúa como base de datos.
+* Actualización de los datos y detección de cambios en los siguientes campos:
+  
+  * Fecha de lanzamiento
+  * Reseñas
+  * Precio
+  * Imagen 
 
 El frontend se conecta a este backend para mostrar y mantener los datos sincronizados tanto en navegador como en Electron.
 
